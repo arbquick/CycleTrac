@@ -61,10 +61,10 @@ const CurrentRideCard: React.FC = () => {
           onClick={handlePauseResume}
           className={`group ${
             currentRide.isPaused 
-              ? "bg-neon-cyan hover:bg-neon-cyan/90 text-black" 
-              : "bg-neon-magenta hover:bg-neon-magenta/90 text-black"
-          } font-bold py-3 px-8 rounded-full transition-all ${
-            !currentRide.isPaused && "animate-pulse-cyan"
+              ? "bg-gradient-to-r from-gold-accent to-neon-cyan hover:shadow-lg hover:shadow-gold-accent/20 text-black" 
+              : "bg-gradient-to-r from-neon-magenta to-electric-purple hover:shadow-lg hover:shadow-neon-magenta/20 text-black"
+          } font-bold py-3 px-8 rounded-full transition-all duration-300 ${
+            !currentRide.isPaused && "animate-pulse-gold"
           }`}
         >
           <span className="flex items-center">
@@ -76,7 +76,7 @@ const CurrentRideCard: React.FC = () => {
         </Button>
         <Button
           onClick={endRide}
-          className="group bg-dark-bg border border-neon-cyan/50 hover:border-neon-cyan text-white font-bold py-3 px-8 rounded-full transition-all"
+          className="group bg-dark-bg border border-gold-accent/30 hover:border-gold-accent/60 hover:bg-dark-surface text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-md"
         >
           <span className="flex items-center">
             <span className="material-icons mr-2">stop</span>
