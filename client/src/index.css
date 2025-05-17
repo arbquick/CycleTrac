@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 187 100% 53%;  /* Neon Cyan */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 300 100% 50%;  /* Neon Magenta */
+  --secondary-foreground: 0 0% 98%;
+  --accent: 279 100% 50%;  /* Electric Purple */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+  
+  /* Custom colors */
+  --neon-cyan: 187 100% 53%;
+  --neon-magenta: 300 100% 50%;
+  --electric-purple: 279 100% 50%;
+  --dark-surface: 0 0% 12%;
+  --dark-bg: 0 0% 7%;
+  
+  /* Chart colors */
+  --chart-1: var(--neon-cyan);
+  --chart-2: var(--neon-magenta);
+  --chart-3: var(--electric-purple);
+  --chart-4: 210 100% 50%;
+  --chart-5: 35 100% 50%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-inter bg-dark-bg text-foreground;
+  }
+  
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-rajdhani font-bold;
+  }
+}
+
+@layer components {
+  .parallax-layer {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .glow {
+    box-shadow: 0 0 15px rgba(13, 240, 255, 0.6);
+  }
+  
+  .glow-magenta {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 15px rgba(157, 0, 255, 0.6);
+  }
+  
+  .border-gradient {
+    @apply relative border-2 border-transparent bg-clip-padding;
+  }
+  
+  .border-gradient::before {
+    content: '';
+    @apply absolute -top-0.5 -right-0.5 -bottom-0.5 -left-0.5 rounded-md -z-10;
+    background: linear-gradient(120deg, hsl(var(--neon-cyan)), hsl(var(--neon-magenta)), hsl(var(--electric-purple)));
+  }
+  
+  .map-container {
+    background: radial-gradient(circle at center, #2a2a2a 0%, #131313 100%);
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  .chart-grid line {
+    stroke: rgba(255, 255, 255, 0.1);
+  }
+  
+  .route-path {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: draw 3s forwards ease-out;
+  }
+  
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  /* 3D perspective container */
+  .perspective-container {
+    perspective: 1000px;
+  }
+  
+  .depth-card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .depth-card:hover {
+    transform: translateZ(20px);
+  }
+  
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .bg-dark-bg {
+    background-color: #121212;
+  }
+  
+  .bg-dark-surface {
+    background-color: #1E1E1E;
+  }
+  
+  .text-neon-cyan {
+    color: hsl(var(--neon-cyan));
+  }
+  
+  .text-neon-magenta {
+    color: hsl(var(--neon-magenta));
+  }
+  
+  .text-electric-purple {
+    color: hsl(var(--electric-purple));
+  }
+  
+  .bg-neon-cyan {
+    background-color: hsl(var(--neon-cyan));
+  }
+  
+  .bg-neon-magenta {
+    background-color: hsl(var(--neon-magenta));
+  }
+  
+  .bg-electric-purple {
+    background-color: hsl(var(--electric-purple));
+  }
+  
+  .animate-pulse-cyan {
+    animation: pulse-cyan 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse-cyan {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(13, 240, 255, 0.5); }
+    50% { box-shadow: 0 0 0 10px rgba(13, 240, 255, 0); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}

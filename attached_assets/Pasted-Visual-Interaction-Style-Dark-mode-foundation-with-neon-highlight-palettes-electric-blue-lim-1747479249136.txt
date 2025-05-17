@@ -1,0 +1,63 @@
+Visual & Interaction Style:
+
+Dark‑mode foundation with neon highlight palettes (electric blue, lime green, hot pink).
+
+Layered UI panels on home, map, and summary screens that shift perspective on tilt or scroll, emulating a 3D parallax effect.
+
+Physics‑driven transitions: every screen change, popup, and button press follows a 0.2–0.3 s ease‑in‑out curve with subtle spring dynamics.
+
+Micro‑interactions: gauge fills, icon morphs, and toggle ripples that convey weightlessness and responsiveness.
+
+Inspiration from Leading Apps:
+
+Strava – GPS tracking in airplane mode with queued uploads; segments and heatmap overlays for post‑ride insights Strava SupportSpingcyclehub.
+
+Komoot – One‑tap “Store for offline use” for tours or full region maps; topo‑aware routing with voice guidance support.komoot.comReddit.
+
+Map My Ride – Airplane‑mode capture of every metric plus real‑time audio coaching; community challenges stored locally .
+
+Ride With GPS – Offline‑mode toggle, downloadable turn‑by‑turn cue‑sheets, and live logging for friends .
+
+OsmAnd – Full OSM map downloads, bike‑optimized routing, voice guidance, and local GPX recording Wikipedia.
+
+Organic Maps – Privacy‑first offline maps with contour lines, elevation profiles, and turn‑by‑turn cycling navigation Wikipedia.
+
+Core Features & Workflow:
+
+On‑device Data Capture: Real‑time logging of GPS, accelerometer, gyroscope, and cadence; store records in an encrypted SQLite or Realm database to survive force‑closes.
+
+Automatic Ride Detection: Start/pause/end rides via motion‑sensor thresholds, with haptic feedback.
+
+3D Analytics Dashboard: Interactive 3D charts for cadence, power, and elevation; heatmap overlays on the parallax map.
+
+Offline Map Engine: Pre‑downloaded vector tiles and terrain data for flawless zoom, pan, and offline turn‑by‑turn cues.
+
+AR Safety & Coaching: Optional HUD prompts for turn cues and hazard alerts via AR glasses or camera view.
+
+Custom Home Widgets: Live speed/distance/time “gauge” widgets with animated fills and neon outlines.
+
+Technical Considerations:
+
+Sensor Fusion: Blend GPS, accelerometer, and gyroscope data for sub‑meter accuracy without network A‑GPS Strava Support.
+
+Framework: Use Flutter or React Native with native modules for low‑level sensor access and GPU‑accelerated animations.
+
+Local Storage: Optimized on‑device DB (SQLite/Realm) with offline‑first sync logic.
+
+Animations & Transitions:
+
+Screen and panel transitions follow a 0.2–0.3 s ease‑in‑out spring curve.
+
+3D transform layers on map tiles and UI cards shift perspective dynamically with user input.
+
+Buttons and toggles exhibit hover‑like press states (scale, glow) to reinforce depth.
+
+Deliverables:
+
+
+
+Figma Prototype showcasing key screens with 3D parallax and physics‑based animation flows.
+
+Technical Architecture Diagram outlining sensor data flow, offline storage, and optional cloud sync.
+
+Interactive Prototype demonstrating offline ride detection, parallax map navigation, and AR safety HUD.
