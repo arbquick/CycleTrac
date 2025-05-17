@@ -68,8 +68,14 @@ const DashboardPage: React.FC = () => {
       {/* Recent Rides Section */}
       <section className="mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="font-rajdhani font-bold text-2xl">Recent Rides</h2>
-          <a href="/routes" className="text-neon-cyan text-sm hover:underline">View All</a>
+          <h2 className="font-rajdhani font-bold text-2xl relative inline-block gold-highlight">
+            Recent Rides
+            <span className="absolute -left-1 top-0 w-2 h-2 rounded-full bg-gold-accent/30"></span>
+          </h2>
+          <a href="/routes" className="text-gold-accent text-sm hover:underline transition-all duration-300 hover:text-neon-cyan flex items-center">
+            <span>View All</span>
+            <span className="material-icons ml-1 text-sm">arrow_forward</span>
+          </a>
         </div>
         
         {recentRides.length > 0 ? (
@@ -79,23 +85,30 @@ const DashboardPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <ParallaxCard className="bg-dark-surface rounded-xl p-6 text-center">
-            <div className="py-8">
+          <ParallaxCard className="premium-glass rounded-xl p-6 text-center border border-gold-accent/10 animate-entrance">
+            <div className="py-10 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-gold-accent/5 via-transparent to-neon-cyan/5 opacity-30 rounded-xl"></div>
               <motion.div 
-                className="material-icons text-4xl mb-4 text-neon-cyan"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                className="material-icons text-5xl mb-6 bg-gradient-to-r from-gold-accent to-neon-cyan bg-clip-text text-transparent"
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: [0, 5, 0, -5, 0]
+                }}
+                transition={{ 
+                  y: { duration: 2, repeat: Infinity, repeatType: "reverse" },
+                  rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+                }}
               >
                 directions_bike
               </motion.div>
-              <h3 className="font-rajdhani text-xl font-semibold mb-2">No Rides Yet</h3>
-              <p className="text-gray-400 mb-6">Start recording your first ride to see it here</p>
+              <h3 className="font-rajdhani text-2xl font-bold mb-3 text-white">No Rides Yet</h3>
+              <p className="text-gray-400 mb-8 max-w-sm mx-auto">Start recording your cycling journey to view your performance data and routes</p>
               <a 
                 href="/new-ride" 
-                className="inline-flex items-center px-6 py-3 bg-neon-cyan text-black font-semibold rounded-full"
+                className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-gold-accent to-neon-cyan text-black font-semibold rounded-full shadow-premium hover:shadow-lg transition-all duration-300 hover:scale-105"
               >
                 <span className="material-icons mr-2">add</span>
-                Start New Ride
+                Start Your First Ride
               </a>
             </div>
           </ParallaxCard>

@@ -80,6 +80,12 @@
     box-shadow: 0 0 15px hsla(var(--gold-accent), 0.7), 0 0 30px hsla(var(--gold-accent), 0.3);
   }
   
+  .shadow-premium {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+                0 8px 10px -6px rgba(0, 0, 0, 0.2),
+                0 0 15px 2px hsla(var(--gold-accent), 0.07);
+  }
+  
   .border-gradient {
     @apply relative border-2 border-transparent bg-clip-padding;
   }
@@ -157,6 +163,13 @@
   .wealth-bg {
     position: relative;
     overflow: hidden;
+    box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .wealth-bg:hover {
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.4),
+                0 0 10px hsla(var(--gold-accent), 0.1);
   }
   
   .wealth-bg::before {
@@ -166,8 +179,20 @@
     right: -100px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, hsla(var(--gold-accent), 0.1) 0%, transparent 70%);
-    opacity: 0.6;
+    background: radial-gradient(circle, hsla(var(--gold-accent), 0.15) 0%, transparent 70%);
+    opacity: 0.7;
+    z-index: 0;
+  }
+  
+  .wealth-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, hsla(var(--neon-cyan), 0.1) 0%, transparent 70%);
+    opacity: 0.5;
     z-index: 0;
   }
   
@@ -306,5 +331,44 @@
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(1deg); }
     75% { transform: rotate(-1deg); }
+  }
+  
+  /* Premium glass effect */
+  .premium-glass {
+    background: rgba(20, 20, 24, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsla(var(--gold-accent), 0.1);
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 0 1px hsla(var(--gold-accent), 0.05);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .premium-glass:hover {
+    border: 1px solid hsla(var(--gold-accent), 0.2);
+    box-shadow: 
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04),
+      0 0 0 1px hsla(var(--gold-accent), 0.1),
+      0 0 15px 2px hsla(var(--gold-accent), 0.05);
+    transform: translateY(-2px);
+  }
+  
+  /* Animates an element into frame with a slight 3D tilt */
+  .animate-entrance {
+    animation: entrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center bottom;
+  }
+  
+  @keyframes entrance {
+    0% {
+      opacity: 0;
+      transform: scale(0.96) translateY(10px) rotateX(2deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0) rotateX(0);
+    }
   }
 }
