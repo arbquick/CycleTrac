@@ -63,6 +63,7 @@ export class MemStorage implements IStorage {
     const newRide: Ride = {
       ...ride,
       id,
+      userId: ride.userId || null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
