@@ -62,13 +62,30 @@ export class MemStorage implements IStorage {
 
   async createRide(ride: InsertRide): Promise<Ride> {
     const id = this.currentRideId++;
+    const now = new Date();
+    
+    // Ensure all required fields have values
     const newRide: Ride = {
       ...ride,
       id,
       userId: ride.userId || null,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      title: ride.title,
+      startTime: ride.startTime,
+      endTime: ride.endTime || null,
+      duration: ride.duration || null,
+      distance: ride.distance || null,
+      avgSpeed: ride.avgSpeed || null,
+      maxSpeed: ride.maxSpeed || null,
+      elevation: ride.elevation || null,
+      totalElevationGain: ride.totalElevationGain || null,
+      avgCadence: ride.avgCadence || null,
+      maxCadence: ride.maxCadence || null,
+      routeData: ride.routeData,
+      isUploaded: ride.isUploaded || false,
+      createdAt: now,
+      updatedAt: now
     };
+    
     this.rides.set(id, newRide);
     return newRide;
   }
@@ -79,11 +96,26 @@ export class MemStorage implements IStorage {
       return undefined;
     }
 
+    // Handle each field explicitly to ensure type safety
     const updatedRide: Ride = {
       ...existingRide,
-      ...ride,
-      id,
-      updatedAt: new Date()
+      title: ride.title || existingRide.title,
+      userId: ride.userId !== undefined ? ride.userId : existingRide.userId,
+      startTime: ride.startTime || existingRide.startTime,
+      endTime: ride.endTime !== undefined ? ride.endTime : existingRide.endTime,
+      duration: ride.duration !== undefined ? ride.duration : existingRide.duration,
+      distance: ride.distance !== undefined ? ride.distance : existingRide.distance,
+      avgSpeed: ride.avgSpeed !== undefined ? ride.avgSpeed : existingRide.avgSpeed,
+      maxSpeed: ride.maxSpeed !== undefined ? ride.maxSpeed : existingRide.maxSpeed,
+      elevation: ride.elevation !== undefined ? ride.elevation : existingRide.elevation,
+      totalElevationGain: ride.totalElevationGain !== undefined ? ride.totalElevationGain : existingRide.totalElevationGain,
+      avgCadence: ride.avgCadence !== undefined ? ride.avgCadence : existingRide.avgCadence,
+      maxCadence: ride.maxCadence !== undefined ? ride.maxCadence : existingRide.maxCadence,
+      routeData: ride.routeData || existingRide.routeData,
+      isUploaded: ride.isUploaded !== undefined ? ride.isUploaded : existingRide.isUploaded,
+      id, // Preserve the ID
+      createdAt: existingRide.createdAt, // Preserve creation date
+      updatedAt: new Date() // Update the modification date
     };
     
     this.rides.set(id, updatedRide);
