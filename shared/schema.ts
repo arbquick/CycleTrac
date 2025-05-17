@@ -1,31 +1,40 @@
-import { pgTable, text, serial, integer, boolean, timestamp, json, real } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, json, real, varchar, doublePrecision, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 // User table
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
+  username: varchar("username", { length: 50 }).notNull().unique(),
   password: text("password").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Ride table to store individual ride data
 export const rides = pgTable("rides", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
-  title: text("title").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
   startTime: timestamp("start_time").notNull(),
   endTime: timestamp("end_time"),
   duration: integer("duration"), // in seconds
-  distance: real("distance"), // in kilometers
-  avgSpeed: real("avg_speed"), // in km/h
-  maxSpeed: real("max_speed"), // in km/h
+  distance: doublePrecision("distance"), // in kilometers
+  avgSpeed: doublePrecision("avg_speed"), // in km/h
+  maxSpeed: doublePrecision("max_speed"), // in km/h
   elevation: integer("elevation"), // in meters
+  totalElevationGain: integer("total_elevation_gain"), // total elevation gain in meters
+  avgCadence: integer("avg_cadence"), // average cadence in rpm
+  maxCadence: integer("max_cadence"), // maximum cadence in rpm
   routeData: json("route_data").notNull(), // GPS points and other data
   isUploaded: boolean("is_uploaded").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => {
+  return {
+    userIdIdx: index("user_id_idx").on(table.userId),
+    startTimeIdx: index("start_time_idx").on(table.startTime),
+  }
 });
 
 // Ride point (GPS coordinates)
@@ -64,6 +73,9 @@ export const insertRideSchema = createInsertSchema(rides).pick({
   avgSpeed: true,
   maxSpeed: true,
   elevation: true,
+  totalElevationGain: true,
+  avgCadence: true,
+  maxCadence: true,
   routeData: true,
   isUploaded: true,
 });

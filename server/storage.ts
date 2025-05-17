@@ -99,4 +99,7 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+import { PgStorage } from './pgStorage';
+
+// When DATABASE_URL is available, use PostgreSQL storage, otherwise fallback to in-memory
+export const storage = process.env.DATABASE_URL ? new PgStorage() : new MemStorage();
