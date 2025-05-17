@@ -1,6 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { testDatabaseConnection } from "./db";
+import { synchronizeSchema } from "./schema-sync";
 
 const app = express();
 app.use(express.json());
@@ -37,6 +39,25 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Initialize database if available
+  if (process.env.DATABASE_URL) {
+    try {
+      // Test database connection
+      const isConnected = await testDatabaseConnection();
+      if (isConnected) {
+        log("Database connection successful!", "db");
+        // Synchronize schema
+        await synchronizeSchema();
+      } else {
+        log("Failed to connect to database, falling back to in-memory storage", "db");
+      }
+    } catch (error) {
+      log(`Database initialization error: ${error}`, "db");
+    }
+  } else {
+    log("No DATABASE_URL provided, using in-memory storage", "db");
+  }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
