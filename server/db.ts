@@ -5,12 +5,8 @@ import { log } from './vite';
 // Configure neon to use HTTP
 neonConfig.fetchConnectionCache = true;
 
-// Get the database URL from environment variables
-const databaseUrl = process.env.DATABASE_URL as string;
-
-if (!databaseUrl) {
-  throw new Error('DATABASE_URL is not defined');
-}
+// Get the database URL from environment variables, falling back to local development URL
+const databaseUrl = process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/postgres';
 
 // Create a SQL client
 const sql = neon(databaseUrl);
